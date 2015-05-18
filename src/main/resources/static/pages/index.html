@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html ng-app="crawler">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="/lib/angular/angular.js"></script>
+    <script src="/lib/angular-resource/angular-resource.js"></script>
+    <script src="/js/crawler.js"></script>
+</head>
+<body ng-controller="crawlerCtrl">
+    <div ng-repeat="f in ls">{{f.path}}</div>
+</body>
+</html>
