@@ -21,6 +21,12 @@
       <includes>
         <include>*.jar</include>
       </includes>
-    </fileSet>
+    </fileSet><fileSet>
+    <directory>${project.basedir}</directory>
+    <outputDirectory>${project.build.directory}</outputDirectory>
+    <includes>
+      <include>*.properties</include>
+    </includes>
+  </fileSet>
   </fileSets>
 </assembly>
