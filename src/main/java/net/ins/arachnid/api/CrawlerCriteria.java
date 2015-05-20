@@ -1,4 +1,4 @@
-package net.ins.arachnid.crawler;
+package net.ins.arachnid.api;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;

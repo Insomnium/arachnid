@@ -1,4 +1,4 @@
-package net.ins.arachnid.crawler;
+package net.ins.arachnid.api;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.HandlerMapping;
