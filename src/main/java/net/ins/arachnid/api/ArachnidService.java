@@ -53,4 +53,8 @@ public class ArachnidService {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    public String getRoot() {
+        return root;
+    }
 }
