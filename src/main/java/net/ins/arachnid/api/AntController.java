@@ -1,6 +1,7 @@
 package net.ins.arachnid.api;
 
 import net.ins.arachnid.domain.FIleInfo;
+import net.ins.arachnid.domain.TrackInfo;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ import java.util.List;
  * Created by ins on 5/17/15.
  */
 @RestController
-public class ArachnidService {
+public class AntController {
 
     @Autowired
     private CrawlerCriteria fsFilter;
@@ -52,9 +53,5 @@ public class ArachnidService {
         }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    public String getRoot() {
-        return root;
     }
 }

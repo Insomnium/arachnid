@@ -1,9 +1,11 @@
 package net.ins.arachnid.domain;
 
+import java.io.Serializable;
+
 /**
- * Created by ins on 5/17/15.
+ * Created by ins on 5/27/15.
  */
-public class FIleInfo {
+public class FIleInfo implements Serializable {
     private String name;
     private String path;
     private String extension;

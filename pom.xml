@@ -20,7 +20,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>net.ins.arachnid.ArachnidApplication</start-class>
+		<start-class>net.ins.arachnid.Main</start-class>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -51,6 +51,12 @@
 			<artifactId>cuelib-read-only</artifactId>
 			<version>1.0.2-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
 		<!--<dependency>-->
 			<!--<groupId>org.kc7bfi.jflac</groupId>-->
 			<!--<artifactId>JustFLAC</artifactId>-->
