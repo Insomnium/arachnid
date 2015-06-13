@@ -1,8 +1,10 @@
 package net.ins.arachnid.internals;
 
 import net.ins.arachnid.domain.TrackInfo;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -10,11 +12,10 @@ import java.util.Collections;
  * Created by ins on 5/24/15.
  */
 public class FSStorage implements Serializable {
-    private Collection<TrackInfo> files = Collections.EMPTY_LIST;
+    private Collection<TrackInfo> files = new ArrayList<>();
 
-    public Collection<TrackInfo> getFiles() {
-        return files;
-    }
+    @Value("${crawler.dbfile}")
+    private String dbFilePath;
 
     public void addInfo(TrackInfo trackInfo) {
         if (!this.files.contains(trackInfo)) {

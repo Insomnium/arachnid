@@ -24,4 +24,8 @@ public class CrawlerCriteria implements DirectoryStream.Filter<Path> {
         String ext = FilenameUtils.getExtension(entry.toFile().getName());
         return Files.isDirectory(entry) || extensions.contains(ext);
     }
+
+    public List<String> getExtensions() {
+        return extensions;
+    }
 }

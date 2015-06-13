@@ -7,18 +7,23 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <!--<bean id="cueParser" class="net.ins.arachnid.engine.impl.CueSheetParser"/>-->
-       <!--<bean class="org.springframework.beans.factory.config.ServiceLocatorFactoryBean" id="mediaParserFactory">-->
-              <!--<property name="serviceLocatorInterface" value="net.ins.arachnid.engine.MediaFileParserFactory" />-->
-       <!--</bean>-->
+       <!--<mvc:annotation-driven />-->
 
        <util:map id="parsers">
               <entry key="cue" value-ref="cueParser"/>
               <entry key="mp3" value-ref="mp3Parser"/>
        </util:map>
 
-       <!--<alias name="mp3Parser" alias="mp3" />-->
-       <!--<alias name="cueParser" alias="cue" />-->
-       <!--<alias name="default" alias="*" />-->
-
+       <!--<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean" >-->
+              <!--&lt;!&ndash;<property name="defaultContentType" value="#{T(org.springframework.http.MediaType.APPLICATION_JSON)}" />&ndash;&gt;-->
+              <!--<property name="defaultContentType" value="application/json" />-->
+              <!--<property name="useJaf" value="true" />-->
+              <!--<property name="ignoreAcceptHeader" value="true" />-->
+              <!--<property name="mediaTypes">-->
+                     <!--<map>-->
+                            <!--<entry key="track" value="application/octet-stream" />-->
+                     <!--</map>-->
+              <!--</property>-->
+              <!-- -->
+       <!--</bean>-->
 </beans>

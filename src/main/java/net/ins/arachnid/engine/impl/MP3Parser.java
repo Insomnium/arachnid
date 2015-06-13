@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by ins on 5/26/15.
@@ -15,6 +16,7 @@ import java.util.Collection;
 public class MP3Parser implements MediaFileParser<TrackInfo> {
     @Override
     public Collection<TrackInfo> parseFile(File file) throws TrackParseException {
-        throw new UnsupportedOperationException("Not supported!");
+//        throw new UnsupportedOperationException("Not supported!");
+        return Collections.EMPTY_LIST;
     }
 }

@@ -1,19 +1,20 @@
 package net.ins.arachnid.engine;
 
 import net.ins.arachnid.domain.TrackInfo;
-import net.ins.arachnid.internals.FSRecord;
 import net.ins.arachnid.internals.FSStorage;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Collection;
 import java.util.List;
@@ -21,13 +22,11 @@ import java.util.List;
 /**
  * Created by ins on 5/20/15.
  */
-@Component
+@Service
 @Scope("prototype")
 public class Ant extends Scanner {
 
     private static final Logger logger = Logger.getLogger(Ant.class);
-    public static final String DEFAULT_DB_FILE = "~/.arachniddb";
-
 
     @Value("${crawler.dbfile}")
     private String dbFilePath;
@@ -48,9 +47,9 @@ public class Ant extends Scanner {
             return FileVisitResult.CONTINUE;
         }
         if (attrs.isSymbolicLink()) {
-            System.out.println(f.getAbsolutePath() + " <- Symbolic link");
+            logger.debug(f.getAbsolutePath() + " <- Symbolic link");
         } else if (attrs.isRegularFile()) {
-            System.out.println(f.getAbsolutePath());
+            logger.debug(f.getAbsolutePath());
             MediaFileParser parser = parserFactory.obtainParser(FilenameUtils.getExtension(f.getName()));
             Collection<TrackInfo> result = parser.parseFile(f);
             storage.addInfos(result);
@@ -60,7 +59,7 @@ public class Ant extends Scanner {
 
     @Override
     public FileVisitResult visitFileFailed(Path file, IOException exc) throws IOException {
-        System.out.println(String.format("======= FAILED AT FILE: %s =======", file.toFile().getAbsolutePath()));
+        logger.error(String.format("======= FAILED AT FILE: %s =======", file.toFile().getAbsolutePath()));
         return FileVisitResult.CONTINUE;
     }
 

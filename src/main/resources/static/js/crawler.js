@@ -2,7 +2,7 @@ var app = angular.module('crawler', ['ngResource', 'ngRoute']);
 
 var crawlerController = app.controller('crawlerCtrl', function ($scope, $resource, $http, $location) {
     $scope.goInto = function (location) {
-        $http.get('/path' + (location || '')).success(function (response) {
+        $http.get('/path' + (location || '/') + '.json').success(function (response) {
             $scope.ref = location;
             $scope.ls = response;
         }).error(function (data) {

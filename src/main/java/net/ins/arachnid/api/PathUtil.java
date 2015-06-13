@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class PathUtil {
     public static final String PATH_URL_MAPPING = "/path";
+    public static final String PATH_URL_JSON_POSTFIX = ".json";
 
     public static String extractPath(HttpServletRequest request) {
         String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
         if (StringUtils.isNotEmpty(path)) {
-            return path.substring(PATH_URL_MAPPING.length(), path.length());
+            String p = path.substring(PATH_URL_MAPPING.length(), path.length());
+            if (path.endsWith(PATH_URL_JSON_POSTFIX)) {
+                return p.substring(0, p.length() - PATH_URL_JSON_POSTFIX.length());
+            }
+            return p;
         }
 
         throw new IllegalArgumentException("Request does not contain path");
