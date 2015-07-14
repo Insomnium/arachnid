@@ -70,7 +70,7 @@ public class AntController implements ApplicationContextAware {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = PathUtil.PATH_URL_MAPPING + "/**", method = RequestMethod.GET)
+    @RequestMapping(value = PathUtil.PATH_URL_MAPPING + "/**", method = { RequestMethod.GET, RequestMethod.HEAD })
     public ResponseEntity getTrack(HttpServletRequest request) throws Exception {
         String path = PathUtil.extractPath(request);
         if (Paths.get(path).toFile().isFile() && fsFilter.getExtensions().contains(FilenameUtils.getExtension(path))) {
@@ -79,8 +79,11 @@ public class AntController implements ApplicationContextAware {
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setContentLength(inputStream.available());
             responseHeaders.add("Content-Disposition", String.format("attachment; filename=%s", path.substring(path.lastIndexOf("/") + 1, path.length())));
-            InputStreamResource isr = new InputStreamResource(inputStream);
-            return new ResponseEntity(isr, responseHeaders, HttpStatus.OK);
+            if (RequestMethod.GET.name().equalsIgnoreCase(request.getMethod())) {
+                InputStreamResource isr = new InputStreamResource(inputStream);
+                return new ResponseEntity(isr, responseHeaders, HttpStatus.OK);
+            }
+            return new ResponseEntity(responseHeaders, HttpStatus.OK);
         }
 
         return new ResponseEntity(HttpStatus.BAD_REQUEST);
