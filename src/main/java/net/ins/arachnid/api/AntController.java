@@ -82,6 +82,7 @@ public class AntController implements ApplicationContextAware {
             InputStream inputStream = resource.getInputStream();
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setContentLength(inputStream.available());
+            responseHeaders.add("Content-Disposition", "attachment; filename=test123.flac");
             InputStreamResource isr = new InputStreamResource(inputStream);
             return new ResponseEntity(isr, responseHeaders, HttpStatus.OK);
         }

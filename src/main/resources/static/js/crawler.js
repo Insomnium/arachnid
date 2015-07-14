@@ -3,9 +3,18 @@ var app = angular.module('crawler', ['ngResource', 'ngRoute']);
 var crawlerController = app.controller('crawlerCtrl', function ($scope, $resource, $http, $location) {
     $scope.goInto = function (f) {
         var isDir = !f || f.dir;
-        var location = f && f.path;
-        $http.get('/path' + (location || '/') + (isDir ? '.json' : '')).success(function (response) {
-            $scope.ref = location;
+        var url = $scope.getUrl(f);
+        //var location = f && f.path;
+        if (!isDir) {
+            $scope.play(url);
+        } else {
+            $scope.deeper(f);
+        }
+    };
+
+    $scope.deeper = function (f) {
+        $http.get($scope.getUrl(f)).success(function (response) {
+            $scope.ref = f && f.path;
             $scope.ls = response;
         }).error(function (data) {
             console.log('Stable? Who said stable? Take it:');
@@ -18,6 +27,18 @@ var crawlerController = app.controller('crawlerCtrl', function ($scope, $resourc
         $scope.goInto(lastSlashPos < 0 ? null : $scope.ref.substr(0, lastSlashPos));
     };
 
+    $scope.play = function (url) {
+        if ($scope.player) {
+            $scope.player.stop();
+            $scope.player = null;
+        }
+        $scope.player = $scope.player || AV.Player.fromURL(url);
+        $scope.player.play();
+    };
+
+    $scope.getUrl = function (f) {
+        return '/path' + ((f && f.path) || '/') + (f && f.dir ? '.json' : '');
+    };
 
     $scope.goInto();
     $scope.ref = $location.path();
