@@ -75,14 +75,14 @@ public class AntController implements ApplicationContextAware {
     }
 
     @RequestMapping(value = PathUtil.PATH_URL_MAPPING + "/**", method = RequestMethod.GET)
-    public ResponseEntity getTrack(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public ResponseEntity getTrack(HttpServletRequest request) throws Exception {
         String path = PathUtil.extractPath(request);
         if (Paths.get(path).toFile().isFile() && fsFilter.getExtensions().contains(FilenameUtils.getExtension(path))) {
             Resource resource = applicationContext.getResource("file://" + path);
             InputStream inputStream = resource.getInputStream();
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setContentLength(inputStream.available());
-            responseHeaders.add("Content-Disposition", "attachment; filename=test123.flac");
+            responseHeaders.add("Content-Disposition", String.format("attachment; filename=%s", path.substring(path.lastIndexOf("/") + 1, path.length())));
             InputStreamResource isr = new InputStreamResource(inputStream);
             return new ResponseEntity(isr, responseHeaders, HttpStatus.OK);
         }
