@@ -7,12 +7,13 @@
     <script src="/lib/angular-resource/angular-resource.js"></script>
     <script src="/lib/angular-route/angular-route.js"></script>
     <script src="/lib/aurora/aurora.js"></script>
+    <script src="/lib/aurora/flac.js"></script>
     <script src="/js/crawler.js"></script>
 </head>
 <body ng-controller="crawlerCtrl">
     <a ng-click="goUpper()">..</a>
     <div ng-repeat="f in ls" ng-switch on="f">
-        <a ng-click="goInto(f.path)">{{f.name}}</a>
+        <a ng-click="goInto(f)">{{f.name}}</a>
     </div>
 </body>
 </html>

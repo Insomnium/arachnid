@@ -6,7 +6,7 @@ cmd="mvn"
 while getopts 'p' opt; do
     case "$opt" in
         p)
-            cmd="$cmd clean package"
+            cmd="$cmd clean package -DskipTests"
             ;;
     esac
 done

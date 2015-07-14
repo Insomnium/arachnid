@@ -1,15 +1,17 @@
 package net.ins.arachnid.api;
 
 import net.ins.arachnid.domain.FIleInfo;
-import net.ins.arachnid.domain.TrackInfo;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -72,13 +75,18 @@ public class AntController implements ApplicationContextAware {
     }
 
     @RequestMapping(value = PathUtil.PATH_URL_MAPPING + "/**", method = RequestMethod.GET)
-    public Resource getTrack(HttpServletRequest request) throws Exception {
+    public ResponseEntity getTrack(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String path = PathUtil.extractPath(request);
         if (Paths.get(path).toFile().isFile() && fsFilter.getExtensions().contains(FilenameUtils.getExtension(path))) {
-            return applicationContext.getResource(path);
+            Resource resource = applicationContext.getResource("file://" + path);
+            InputStream inputStream = resource.getInputStream();
+            HttpHeaders responseHeaders = new HttpHeaders();
+            responseHeaders.setContentLength(inputStream.available());
+            InputStreamResource isr = new InputStreamResource(inputStream);
+            return new ResponseEntity(isr, responseHeaders, HttpStatus.OK);
         }
 
-        throw new Exception("Invalid tracks");
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
 
     @Override
