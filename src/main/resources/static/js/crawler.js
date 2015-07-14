@@ -4,7 +4,6 @@ var crawlerController = app.controller('crawlerCtrl', function ($scope, $resourc
     $scope.goInto = function (f) {
         var isDir = !f || f.dir;
         var url = $scope.getUrl(f);
-        //var location = f && f.path;
         if (!isDir) {
             $scope.play(url);
         } else {
@@ -17,14 +16,17 @@ var crawlerController = app.controller('crawlerCtrl', function ($scope, $resourc
             $scope.ref = f && f.path;
             $scope.ls = response;
         }).error(function (data) {
-            console.log('Stable? Who said stable? Take it:');
+            console.log('Exception occurred. Here comes the dump if any:');
             console.dir(data);
         })
     };
 
     $scope.goUpper = function () {
         var lastSlashPos = $scope.ref.lastIndexOf('\/');
-        $scope.goInto(lastSlashPos < 0 ? null : $scope.ref.substr(0, lastSlashPos));
+        $scope.goInto({
+            path: (lastSlashPos < 0 ? null : $scope.ref.substr(0, lastSlashPos)),
+            dir: true
+        });
     };
 
     $scope.play = function (url) {

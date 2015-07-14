@@ -2,7 +2,6 @@ package net.ins.arachnid.api;
 
 import net.ins.arachnid.domain.FIleInfo;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,23 +51,21 @@ public class AntController implements ApplicationContextAware {
 
         path = StringUtils.isEmpty(path) || "/".equals(path) ? root : path;
         if (path.length() < root.length()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
         List<FIleInfo> result = new ArrayList<>();
-        if (Paths.get(path).toFile().isFile() && fsFilter.getExtensions().contains(FilenameUtils.getExtension(path))) {
-            Resource resource = applicationContext.getResource(path);
-            String debug = "debug";
-        } else {
-            try {
-                DirectoryStream<Path> dir = Files.newDirectoryStream(Paths.get(path), fsFilter);
-                for (Path d : dir) {
-                    File f = d.toFile();
-                    result.add(new FIleInfo(f.getName(), d.toString(), FilenameUtils.getExtension(f.getName()), f.isDirectory()));
-                }
-            } catch (IOException e) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        if (Paths.get(path).toFile().isFile() && fsFilter.getExtensions().contains(FilenameUtils.getExtension(path))) {
+//        } else {
+        try {
+            DirectoryStream<Path> dir = Files.newDirectoryStream(Paths.get(path), fsFilter);
+            for (Path d : dir) {
+                File f = d.toFile();
+                result.add(new FIleInfo(f.getName(), d.toString(), FilenameUtils.getExtension(f.getName()), f.isDirectory()));
             }
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+//        }
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
