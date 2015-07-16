@@ -1,15 +1,17 @@
 package net.ins.arachnid;
 
-import net.ins.arachnid.api.AntController;
+import net.ins.arachnid.conf.Config;
 import net.ins.arachnid.engine.Scanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 
 import java.io.IOException;
 
 @SpringBootApplication
+@Import(Config.class)
 @ImportResource("classpath:applicationContext.xml")
 public class Main {
 
@@ -19,6 +21,10 @@ public class Main {
         ConfigurableApplicationContext appContext = SpringApplication.run(Main.class, args);
         Scanner scanner = appContext.getBean(Scanner.class);
         scanner.scan();
+
+
+
+
 //        CueSheet sheet = CueParser.parse(FileUtils.openInputStream(new File(SAMPLE_CUE_FILE_PATH)));
 //        List<FileData> fileData = sheet.getFileData();
 //

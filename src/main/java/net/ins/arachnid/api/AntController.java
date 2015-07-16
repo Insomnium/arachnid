@@ -83,7 +83,7 @@ public class AntController implements ApplicationContextAware {
                 InputStreamResource isr = new InputStreamResource(inputStream);
                 return new ResponseEntity(isr, responseHeaders, HttpStatus.OK);
             }
-            return new ResponseEntity(responseHeaders, HttpStatus.OK);
+            return new ResponseEntity(responseHeaders, HttpStatus.OK); // Need HEAD request type due to aurora.js requirements
         }
 
         return new ResponseEntity(HttpStatus.BAD_REQUEST);

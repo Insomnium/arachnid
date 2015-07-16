@@ -9,10 +9,15 @@
 
        <!--<mvc:annotation-driven />-->
 
+       <import resource="repository.xml" />
+       <context:component-scan base-package="net.ins.arachnid" />
+
        <util:map id="parsers">
               <entry key="cue" value-ref="cueParser"/>
               <entry key="mp3" value-ref="mp3Parser"/>
        </util:map>
+
+
 
        <!--<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean" >-->
               <!--&lt;!&ndash;<property name="defaultContentType" value="#{T(org.springframework.http.MediaType.APPLICATION_JSON)}" />&ndash;&gt;-->

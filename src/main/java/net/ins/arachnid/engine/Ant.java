@@ -1,7 +1,8 @@
 package net.ins.arachnid.engine;
 
+import net.ins.arachnid.dao.FSStorage;
 import net.ins.arachnid.domain.TrackInfo;
-import net.ins.arachnid.internals.FSStorage;
+import net.ins.arachnid.dao.impl.FSStorageImpl;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,10 @@ public class Ant extends Scanner {
     @Autowired
     private MediaFileParserFactory parserFactory;
 
-    private FSStorage storage = new FSStorage();
+    @Autowired
+    private FSStorage fsStorage;
+
+    private FSStorageImpl storage = new FSStorageImpl();
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -52,7 +56,8 @@ public class Ant extends Scanner {
             logger.debug(f.getAbsolutePath());
             MediaFileParser parser = parserFactory.obtainParser(FilenameUtils.getExtension(f.getName()));
             Collection<TrackInfo> result = parser.parseFile(f);
-            storage.addInfos(result);
+//            storage.addInfos(result);
+            fsStorage.addInfos(result);
         }
         return FileVisitResult.CONTINUE;
     }
