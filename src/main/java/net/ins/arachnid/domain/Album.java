@@ -1,12 +1,19 @@
 package net.ins.arachnid.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Date;
 
 /**
  * Created by ins on 5/24/15.
  */
+@Entity
+@Table(name = "albums")
 public class Album {
+    @Id
+    private long id;
     private String title;
     private Date releaseDate;
     private Collection<String> relatedGenres;
