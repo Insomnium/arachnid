@@ -1,30 +1,28 @@
 package net.ins.arachnid.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+
 import java.util.Collection;
 import java.util.Date;
 
 /**
  * Created by ins on 5/24/15.
  */
-@Entity
-@Table(name = "albums")
 public class Album {
+
     @Id
     private long id;
     private String title;
     private Date releaseDate;
-    private Collection<String> relatedGenres;
+    private Collection<String> genres;
 
     public Album() {
     }
 
-    public Album(String title, Date releaseDate, Collection<String> relatedGenres) {
+    public Album(String title, Date releaseDate, Collection<String> genres) {
         this.title = title;
         this.releaseDate = releaseDate;
-        this.relatedGenres = relatedGenres;
+        this.genres = genres;
     }
 
     public String getTitle() {
@@ -43,12 +41,12 @@ public class Album {
         this.releaseDate = releaseDate;
     }
 
-    public Collection<String> getRelatedGenres() {
-        return relatedGenres;
+    public Collection<String> getGenres() {
+        return genres;
     }
 
-    public void setRelatedGenres(Collection<String> relatedGenres) {
-        this.relatedGenres = relatedGenres;
+    public void setGenres(Collection<String> genres) {
+        this.genres = genres;
     }
 
     @Override
@@ -60,7 +58,7 @@ public class Album {
 
         if (title != null ? !title.equals(album.title) : album.title != null) return false;
         if (releaseDate != null ? !releaseDate.equals(album.releaseDate) : album.releaseDate != null) return false;
-        return !(relatedGenres != null ? !relatedGenres.equals(album.relatedGenres) : album.relatedGenres != null);
+        return !(genres != null ? !genres.equals(album.genres) : album.genres != null);
 
     }
 
@@ -68,7 +66,7 @@ public class Album {
     public int hashCode() {
         int result = title != null ? title.hashCode() : 0;
         result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
-        result = 31 * result + (relatedGenres != null ? relatedGenres.hashCode() : 0);
+        result = 31 * result + (genres != null ? genres.hashCode() : 0);
         return result;
     }
 
@@ -77,7 +75,7 @@ public class Album {
         return "Album{" +
                 "title='" + title + '\'' +
                 ", releaseDate=" + releaseDate +
-                ", relatedGenres=" + relatedGenres +
+                ", genres=" + genres +
                 '}';
     }
 }
