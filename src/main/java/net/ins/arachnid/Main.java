@@ -15,8 +15,6 @@ import java.io.IOException;
 @ImportResource("classpath:applicationContext.xml")
 public class Main {
 
-    private static final String SAMPLE_CUE_FILE_PATH = "/home/ins/lossless/2014 Siren Charms/In Flames - Siren Charms (Digibook Edition).cue";
-
     public static void main(String[] args) throws IOException {
         ConfigurableApplicationContext appContext = SpringApplication.run(Main.class, args);
         Scanner scanner = appContext.getBean(Scanner.class);
