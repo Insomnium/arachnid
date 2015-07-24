@@ -1,6 +1,7 @@
 package net.ins.arachnid;
 
 import net.ins.arachnid.conf.Config;
+import net.ins.arachnid.conf.Mongo;
 import net.ins.arachnid.engine.Scanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.ImportResource;
 import java.io.IOException;
 
 @SpringBootApplication
-@Import(Config.class)
+@Import({Config.class, Mongo.class})
 @ImportResource("classpath:applicationContext.xml")
 public class Main {
 

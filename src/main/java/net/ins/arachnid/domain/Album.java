@@ -1,6 +1,7 @@
 package net.ins.arachnid.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Collection;
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.Date;
 /**
  * Created by ins on 5/24/15.
  */
+@Document
 public class Album {
 
     @Id

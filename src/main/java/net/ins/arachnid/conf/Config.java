@@ -35,7 +35,9 @@ public class Config {
     @PostConstruct
     public void init() throws IOException, SQLException {
         File dbFile = Paths.get(dbFilePath).toFile();
+
         if (!dbFile.exists()) {
+            dbFile.mkdirs();
             dbFile.createNewFile();
             URL resource = getClass().getResource("/db/audio.sql");
             String path = resource.getPath();

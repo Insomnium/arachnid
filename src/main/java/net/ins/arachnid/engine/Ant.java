@@ -1,8 +1,8 @@
 package net.ins.arachnid.engine;
 
-import net.ins.arachnid.dao.FSStorage;
+import net.ins.arachnid.dao.AudioDao;
 import net.ins.arachnid.domain.TrackInfo;
-import net.ins.arachnid.dao.impl.FSStorageImpl;
+import net.ins.arachnid.dao.impl.AudioDaoHibernateImpl;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,9 @@ public class Ant extends Scanner {
     private MediaFileParserFactory parserFactory;
 
     @Autowired
-    private FSStorage fsStorage;
+    private AudioDao audioDao;
 
-    private FSStorageImpl storage = new FSStorageImpl();
+    private AudioDaoHibernateImpl storage = new AudioDaoHibernateImpl();
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -57,7 +57,7 @@ public class Ant extends Scanner {
             MediaFileParser parser = parserFactory.obtainParser(FilenameUtils.getExtension(f.getName()));
             Collection<TrackInfo> result = parser.parseFile(f);
 //            storage.addInfos(result);
-            fsStorage.addInfos(result);
+            audioDao.addInfos(result);
         }
         return FileVisitResult.CONTINUE;
     }

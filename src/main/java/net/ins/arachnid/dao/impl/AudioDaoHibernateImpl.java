@@ -1,6 +1,6 @@
 package net.ins.arachnid.dao.impl;
 
-import net.ins.arachnid.dao.FSStorage;
+import net.ins.arachnid.dao.AudioDao;
 import net.ins.arachnid.domain.TrackInfo;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.HashSet;
  * Created by ins on 5/24/15.
  */
 @Repository
-public class FSStorageImpl implements FSStorage, Serializable {
+public class AudioDaoHibernateImpl implements AudioDao, Serializable {
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -39,7 +39,7 @@ public class FSStorageImpl implements FSStorage, Serializable {
 
     @Override
     public String toString() {
-        return "FSStorage{" +
+        return "AudioDao{" +
                 "files=" + files +
                 '}';
     }
