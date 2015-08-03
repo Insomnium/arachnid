@@ -1,6 +1,7 @@
 package net.ins.arachnid.engine;
 
 import net.ins.arachnid.dao.AudioDao;
+import net.ins.arachnid.domain.ParseResult;
 import net.ins.arachnid.domain.TrackInfo;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
@@ -54,8 +55,8 @@ public class Ant extends Scanner {
         } else if (attrs.isRegularFile()) {
             logger.debug(f.getAbsolutePath());
             MediaFileParser parser = parserFactory.obtainParser(FilenameUtils.getExtension(f.getName()));
-            Collection<TrackInfo> result = parser.parse(f);
-            audioDao.addInfos(result);
+            ParseResult parseResult = parser.parse(f);
+            audioDao.addInfos(parseResult.getTracks());
         }
         return FileVisitResult.CONTINUE;
     }

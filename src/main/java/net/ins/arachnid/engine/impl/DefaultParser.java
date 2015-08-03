@@ -1,12 +1,12 @@
 package net.ins.arachnid.engine.impl;
 
+import net.ins.arachnid.domain.ParseResult;
 import net.ins.arachnid.domain.TrackInfo;
 import net.ins.arachnid.domain.TrackParseException;
 import net.ins.arachnid.engine.MediaFileParser;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -15,7 +15,7 @@ import java.util.Collections;
 @Component("defaultParser")
 public class DefaultParser implements MediaFileParser<TrackInfo> {
     @Override
-    public Collection<TrackInfo> parse(File file) throws TrackParseException {
-        return Collections.emptyList();
+    public ParseResult parse(File file) throws TrackParseException {
+        return null;
     }
 }

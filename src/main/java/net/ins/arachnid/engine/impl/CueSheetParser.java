@@ -1,6 +1,7 @@
 package net.ins.arachnid.engine.impl;
 
 import jwbroek.cuelib.*;
+import net.ins.arachnid.domain.ParseResult;
 import net.ins.arachnid.domain.TrackInfo;
 import net.ins.arachnid.domain.TrackParseException;
 import net.ins.arachnid.engine.MediaFileParser;
@@ -11,7 +12,6 @@ import org.springframework.util.CollectionUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -20,27 +20,25 @@ import java.util.List;
 @Component("cueParser")
 public class CueSheetParser implements MediaFileParser<TrackInfo> {
     @Override
-    public Collection<TrackInfo> parse(File file) throws TrackParseException {
-        Collection<TrackInfo> parseResult = null;
+    public ParseResult parse(File file) throws TrackParseException {
+        List<TrackInfo> tracks = new ArrayList<>();
         try {
             CueSheet sheet = CueParser.parse(file);
             List<FileData> cueParts = sheet.getFileData();
             List<TrackData> trackData = cueParts.get(0).getTrackData();
-            parseResult = new ArrayList<>(trackData.size());
             for (TrackData data : trackData) {
                 System.out.println(data);
-                TrackInfo track = new TrackInfo(sheet.getPerformer(), file.getPath(),
+                TrackInfo track = new TrackInfo(file.getPath(),
                         FilenameUtils.getExtension(file.getName()), false, data.getPerformer(), data.getTitle(),
                         (long) data.getNumber());
                 fillTiming(track, data);
-                parseResult.add(track);
-
+                tracks.add(track);
             }
         } catch (IOException e) {
             throw new TrackParseException(e.getMessage(), e);
         }
 
-        return parseResult;
+        return new ParseResult(tracks);
     }
 
     private void fillTiming(TrackInfo trackInfo, TrackData data) {

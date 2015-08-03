@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Created by ins on 5/17/15.
  */
 @Document
-public class TrackInfo extends FIleInfo {
+public class TrackInfo extends FileInfo {
 
     @Id
     private String id;
@@ -22,22 +22,22 @@ public class TrackInfo extends FIleInfo {
     }
 
     public TrackInfo(String name, String path, String extension, boolean dir, String band, String title, Long number, Album album) {
-        super(name, path, extension, dir);
+        super(path, extension, dir);
         this.band = band;
         this.title = title;
         this.number = number;
         this.album = album;
     }
 
-    public TrackInfo(String name, String path, String extension, boolean dir, String band, String title, Long number) {
-        super(name, path, extension, dir);
+    public TrackInfo(String path, String extension, boolean dir, String band, String title, Long number) {
+        super(path, extension, dir);
         this.band = band;
         this.title = title;
         this.number = number;
     }
 
-    public TrackInfo(String name, String path, String extension, boolean dir, String band, String title, Long number, Long cueStartPos) {
-        this(name, path, extension, dir, band, title, number);
+    public TrackInfo(String path, String extension, boolean dir, String band, String title, Long number, Long cueStartPos) {
+        this(path, extension, dir, band, title, number);
         this.cueStartPos = cueStartPos;
     }
 

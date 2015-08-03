@@ -1,6 +1,6 @@
 package net.ins.arachnid.api;
 
-import net.ins.arachnid.domain.FIleInfo;
+import net.ins.arachnid.domain.FileInfo;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
@@ -46,21 +46,21 @@ public class AntController implements ApplicationContextAware {
 
     @RequestMapping(value = PathUtil.PATH_URL_MAPPING + "/**", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<List<FIleInfo>> listDirectory(HttpServletRequest request) {
+    public ResponseEntity<List<FileInfo>> listDirectory(HttpServletRequest request) {
         String path = PathUtil.extractPath(request);
 
         path = StringUtils.isEmpty(path) || "/".equals(path) ? root : path;
         if (path.length() < root.length()) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        List<FIleInfo> result = new ArrayList<>();
+        List<FileInfo> result = new ArrayList<>();
 //        if (Paths.get(path).toFile().isFile() && fsFilter.getExtensions().contains(FilenameUtils.getExtension(path))) {
 //        } else {
         try {
             DirectoryStream<Path> dir = Files.newDirectoryStream(Paths.get(path), fsFilter);
             for (Path d : dir) {
                 File f = d.toFile();
-                result.add(new FIleInfo(f.getName(), d.toString(), FilenameUtils.getExtension(f.getName()), f.isDirectory()));
+                result.add(new FileInfo(d.toString(), FilenameUtils.getExtension(f.getName()), f.isDirectory()));
             }
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
