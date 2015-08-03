@@ -54,8 +54,7 @@ public class Ant extends Scanner {
         } else if (attrs.isRegularFile()) {
             logger.debug(f.getAbsolutePath());
             MediaFileParser parser = parserFactory.obtainParser(FilenameUtils.getExtension(f.getName()));
-            Collection<TrackInfo> result = parser.parseFile(f);
-//            storage.addInfos(result);
+            Collection<TrackInfo> result = parser.parse(f);
             audioDao.addInfos(result);
         }
         return FileVisitResult.CONTINUE;

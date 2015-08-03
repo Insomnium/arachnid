@@ -14,8 +14,6 @@ import java.util.Map;
 @Service
 public class MediaFileParserFactory<T extends TrackInfo> {
 
-//    @Autowired
-//    @Qualifier("parsers")
     @Resource(name = "parsers")
     private Map<String, MediaFileParser> parsers;
 

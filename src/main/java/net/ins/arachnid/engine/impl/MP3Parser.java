@@ -15,8 +15,7 @@ import java.util.Collections;
 @Component("mp3Parser")
 public class MP3Parser implements MediaFileParser<TrackInfo> {
     @Override
-    public Collection<TrackInfo> parseFile(File file) throws TrackParseException {
-//        throw new UnsupportedOperationException("Not supported!");
+    public Collection<TrackInfo> parse(File file) throws TrackParseException {
         return Collections.EMPTY_LIST;
     }
 }

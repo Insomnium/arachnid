@@ -10,5 +10,5 @@ import java.util.Collection;
  * Created by ins on 5/25/15.
  */
 public interface MediaFileParser<T extends TrackInfo> {
-    Collection<TrackInfo> parseFile(File file) throws TrackParseException;
+    Collection<TrackInfo> parse(File file) throws TrackParseException;
 }

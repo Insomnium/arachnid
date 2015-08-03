@@ -15,7 +15,7 @@ import java.util.Collections;
 @Component("defaultParser")
 public class DefaultParser implements MediaFileParser<TrackInfo> {
     @Override
-    public Collection<TrackInfo> parseFile(File file) throws TrackParseException {
+    public Collection<TrackInfo> parse(File file) throws TrackParseException {
         return Collections.emptyList();
     }
 }
