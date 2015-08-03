@@ -10,6 +10,9 @@ public class ParseResult {
     private Album album;
     private List<TrackInfo> tracks;
 
+    public ParseResult() {
+    }
+
     public ParseResult(Album album, List<TrackInfo> tracks) {
         this.album = album;
         this.tracks = tracks;

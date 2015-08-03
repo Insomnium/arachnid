@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 /**
+ * @deprecated Using MongoRepository 'magic' interface seems more preferable
  * Created by ins on 7/24/15.
  */
 @Repository
+@Deprecated
 public class AudioDaoMongoImpl implements AudioDao {
 
     @Autowired

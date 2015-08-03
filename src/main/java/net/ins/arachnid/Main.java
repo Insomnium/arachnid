@@ -8,36 +8,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.io.IOException;
 
 @SpringBootApplication
 @Import({Config.class, Mongo.class})
 @ImportResource("classpath:applicationContext.xml")
+@EnableMongoRepositories
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        long started = System.currentTimeMillis();
         ConfigurableApplicationContext appContext = SpringApplication.run(Main.class, args);
         Scanner scanner = appContext.getBean(Scanner.class);
         scanner.scan();
+        System.out.println(String.format("Scanned in %s ms", System.currentTimeMillis() - started));
 
-
-
-
-//        CueSheet sheet = CueParser.parse(FileUtils.openInputStream(new File(SAMPLE_CUE_FILE_PATH)));
-//        List<FileData> fileData = sheet.getFileData();
-//
-//        List<TrackData> trackDataList = fileData.get(0).getTrackData();
-//        for (TrackData trackData : trackDataList) {
-//            System.out.println(trackData);
-//        }
-//        TrackData trackData = trackDataList.get(1);
-//        Position pregap = trackData.getPregap();
-//        Position postgap = trackData.getPostgap();
-//
-//        // TODO: 1. Create database with scan status
-//        // TODO: 2. Add active-scan/in-file-db mode property (setting)
-//
-//        String debug = "debug";
+        // TODO: Add active-scan/in-file-db mode property (setting)
     }
 }

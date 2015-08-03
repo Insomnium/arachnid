@@ -25,6 +25,9 @@ public class CueSheetParser implements MediaFileParser<TrackInfo> {
         try {
             CueSheet sheet = CueParser.parse(file);
             List<FileData> cueParts = sheet.getFileData();
+            if (CollectionUtils.isEmpty(cueParts)) {
+                return new ParseResult();
+            }
             List<TrackData> trackData = cueParts.get(0).getTrackData();
             for (TrackData data : trackData) {
                 System.out.println(data);

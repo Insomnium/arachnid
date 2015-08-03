@@ -1,5 +1,7 @@
 package net.ins.arachnid.domain;
 
+import org.springframework.data.mongodb.core.mapping.Field;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +9,7 @@ import java.io.Serializable;
  */
 public class FileInfo implements Serializable {
     private String path;
+    @Field("ext")
     private String extension;
     private boolean isDir;
 

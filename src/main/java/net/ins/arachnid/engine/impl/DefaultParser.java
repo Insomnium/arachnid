@@ -16,6 +16,6 @@ import java.util.Collections;
 public class DefaultParser implements MediaFileParser<TrackInfo> {
     @Override
     public ParseResult parse(File file) throws TrackParseException {
-        return null;
+        return new ParseResult();
     }
 }

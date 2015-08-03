@@ -2,6 +2,7 @@ package net.ins.arachnid.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Collection;
 import java.util.Date;
@@ -15,6 +16,7 @@ public class Album {
     @Id
     private long id;
     private String title;
+    @Field("released")
     private Date releaseDate;
     private Collection<String> genres;
 
