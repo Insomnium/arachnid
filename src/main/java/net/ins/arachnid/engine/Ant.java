@@ -2,10 +2,10 @@ package net.ins.arachnid.engine;
 
 import net.ins.arachnid.dao.AudioDao;
 import net.ins.arachnid.domain.TrackInfo;
-import net.ins.arachnid.dao.impl.AudioDaoHibernateImpl;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -39,9 +39,8 @@ public class Ant extends Scanner {
     private MediaFileParserFactory parserFactory;
 
     @Autowired
+    @Qualifier("audioDaoMongoImpl")
     private AudioDao audioDao;
-
-    private AudioDaoHibernateImpl storage = new AudioDaoHibernateImpl();
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
