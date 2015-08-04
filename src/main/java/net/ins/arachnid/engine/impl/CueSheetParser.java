@@ -6,6 +6,7 @@ import net.ins.arachnid.domain.TrackInfo;
 import net.ins.arachnid.domain.TrackParseException;
 import net.ins.arachnid.engine.MediaFileParser;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -19,6 +20,9 @@ import java.util.List;
  */
 @Component("cueParser")
 public class CueSheetParser implements MediaFileParser<TrackInfo> {
+
+    private static final Logger logger = Logger.getLogger(CueSheetParser.class);
+
     @Override
     public ParseResult parse(File file) throws TrackParseException {
         List<TrackInfo> tracks = new ArrayList<>();
@@ -30,7 +34,7 @@ public class CueSheetParser implements MediaFileParser<TrackInfo> {
             }
             List<TrackData> trackData = cueParts.get(0).getTrackData();
             for (TrackData data : trackData) {
-                System.out.println(data);
+                logger.debug(data);
                 TrackInfo track = new TrackInfo(file.getPath(),
                         FilenameUtils.getExtension(file.getName()), false, data.getPerformer(), data.getTitle(),
                         (long) data.getNumber());
